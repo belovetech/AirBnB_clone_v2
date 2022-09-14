@@ -27,6 +27,7 @@ class FileStorage:
 
     # Update
     def delete(self, obj=None):
+         """Delete object from __objects"""
         if obj is None:
             return
         else:
