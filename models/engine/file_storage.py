@@ -27,7 +27,7 @@ class FileStorage:
 
     # Update
     def delete(self, obj=None):
-         """Delete object from __objects"""
+        """Delete object from __objects"""
         if obj is None:
             return
         key_obj = obj.to_dict()['__class__'] + '.' + obj.id
