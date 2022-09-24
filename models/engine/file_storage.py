@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
+from models.state import State
+from models.city import City
 
 
 class FileStorage:
@@ -64,3 +66,7 @@ class FileStorage:
                     self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    @property
+    def cities(self):
+        return [State.id == state_id for state_id in City.state_id]
