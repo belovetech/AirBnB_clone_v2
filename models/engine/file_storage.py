@@ -31,7 +31,8 @@ class FileStorage:
         if obj is None:
             return
         key_obj = obj.to_dict()['__class__'] + '.' + obj.id
-        del type(self).__objects[key_obj]
+        if key_obj in type(self).__objects.keys():
+            del type(self).__objects[key_obj]
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -44,10 +45,10 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
