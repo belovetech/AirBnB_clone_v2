@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """Representation of State class
     args:
         __tablename___(str): Name of the table
