@@ -39,10 +39,12 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """query on the current database session all objects depending of the class name
+        """query on the current database session all objects
+        depending of the class name
 
         if cls=None:
-             query all types of objects (User, State, City, Amenity, Place and Review)
+             query all types of objects (User, State, City,
+             Amenity, Place and Review)
 
         Returns:
             a dictionary: key = <class-name>.<object-id>
@@ -61,7 +63,7 @@ class DBStorage:
                 for q in query:
                     key = type(q).__name__ + '.' + q.id
                     dict[key] = q
-                # return {'{}.{}'.format(type(q).__name__, q.id): q for q in query}
+            # return {'{}.{}'.format(type(q).__name__, q.id): q for q in query}
         return dict
 
     def new(self, obj):
