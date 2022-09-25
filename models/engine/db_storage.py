@@ -63,3 +63,7 @@ class DBStorage:
                     dict[key] = q
                 # return {'{}.{}'.format(type(q).__name__, q.id): q for q in query}
         return dict
+
+    def new(self, obj):
+        """Add new object to the current database session (self.__session)"""
+        self.__session.add(obj)
