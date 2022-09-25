@@ -3,7 +3,7 @@
 
 from os import getenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 from models.state import State
 from models.city import City
@@ -76,3 +76,11 @@ class DBStorage:
         """delete from the current database session obj if not None"""
         if obj:
             self.__session.delete(obj)
+
+    def reload(self):
+        """Create all table in the database and initialize a new session"""
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
