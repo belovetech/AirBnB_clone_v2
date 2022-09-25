@@ -15,7 +15,6 @@ class State(BaseModel):
         cities (Integer): State-City relationship
     """
     __tablename__ = 'states'
-    id = Column(Integer, unique=True, primary_key=True, nullable=False)
     name = Column(String(128), nullable=False)
     cities = relationship('City', backref='states',
                           cascade='all delete delete-orphan')
