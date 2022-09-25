@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """This module defines a class to manage database storage for hbnb clone"""
 
-import os
-from dotenv import load_dotenv
+from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.base_model import Base
@@ -14,20 +13,18 @@ class DBStorage:
 
     def __init__(self):
         """Create database engine with environment variables"""
-        load_dotenv()
-        user = os.environ['HBNB_MYSQL_USER']
-        passwd = os.environ['HBNB_MYSQL_PWD']
-        db = os.environ['HBNB_MYSQL_DB']
-        host = os.environ['HBNB_MYSQL_HOST']
-        env = os.environ['HBNB_ENV']
 
         self.__engine = create_engine(
-            'mysql+mysqldb://{}:{}@{}/{}'.format(user, passwd, host, db, pool_pre_ping=True))
+            'mysql+mysqldb://{}:{}@{}/{}'.format(
+                getenv('HBNB_MYSQL_USER'),
+                getenv('HBNB_MYSQL_PWD'),
+                getenv('HBNB_MYSQL_DB'),
+                pool_pre_ping=True))
 
         Session = sessionmaker()
         self.__session = Session()
 
-        if env == 'test':
+        if getenv('HBNB_ENV') == 'test':
             # Drop all the tables
             Base.metadata.drop_all(self.__engine)
 
