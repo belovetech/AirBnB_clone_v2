@@ -14,6 +14,5 @@ class City(BaseModel, Base):
         name (str): name of city
     """
     __tablename__ = 'cities'
-    id = Column(Integer, unique=True, primary_key=True, nullable=False)
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
