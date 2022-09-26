@@ -57,7 +57,8 @@ class DBStorage:
                 key = type(q).__name__ + '.' + q.id
                 dict[key] = q
         else:
-            classes = [User, State, City, Amenity, Place, Review]
+            # classes = [User, State, City, Amenity, Place, Review]
+            classes = [State, City]
             for cls in classes:
                 query = self.__session.query(cls)
                 for q in query:
@@ -86,3 +87,7 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
+
+    def close(self):
+        """Close the working SQLAlchemy session"""
+        self.__session.close()
