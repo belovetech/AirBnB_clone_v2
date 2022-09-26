@@ -66,10 +66,3 @@ class FileStorage:
                     self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
-
-    @property
-    def cities(self):
-        """cities property getter: 
-            retrieve the list of the City instances with state_id equals to the current State.id.
-        """
-        return [State.id == state_id for state_id in City.state_id]
