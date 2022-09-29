@@ -15,7 +15,8 @@ touch /data/web_static/releases/test/index.html
 echo "Hello Nginx!" >> /data/web_static/releases/test/index.html
 
 # Check if directory current exist
-if [ -d "/data/web_static/current"] then
+if [ -d "/data/web_static/current"] 
+then
     sudo rm -rf /data/web_static/current
 fi
 
