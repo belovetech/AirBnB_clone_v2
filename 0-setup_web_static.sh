@@ -2,7 +2,8 @@
 # Bash script that sets up your web servers for the deployment of web_static
 
 # Install Nginx
-apt-get install -y nginx
+apt-get -y update > /dev/null
+apt-get install -y nginx > /dev/null
 
 
 # Create web_static path
@@ -12,6 +13,11 @@ touch /data/web_static/releases/test/index.html
 
 # Print 'Hello Nginx'
 echo "Hello Nginx!" >> /data/web_static/releases/test/index.html
+
+# Check if directory current exist
+if [ -d "/data/web_static/current"] then
+    sudo rm -rf /data/web_static/current
+fi
 
 # Create a symbolink link
 ln -s -f /data/web_static/releases/test/ /data/web_static/current
