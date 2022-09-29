@@ -25,7 +25,7 @@ fi
 ln -s -f /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership to the ubuntu
-chown -hR "ubuntu":"ubuntu" /data
+chown -hR ubuntu:ubuntu /data
 
 # Update Nginx configuration
 sed -i "38i\\\tlocation /hbnb_static/{\n\t\talias /data/web_static/current/;\n\t}\n" /etc/nginx/sites-available/default
