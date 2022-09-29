@@ -15,10 +15,11 @@ touch /data/web_static/releases/test/index.html
 echo "Hello Nginx!" >> /data/web_static/releases/test/index.html
 
 # Check if directory current exist
-if [ -d "/data/web_static/current"] 
+if [ -d "/data/web_static/current" ]
 then
-    sudo rm -rf /data/web_static/current
+        sudo rm -rf /data/web_static/current
 fi
+
 
 # Create a symbolink link
 ln -s -f /data/web_static/releases/test/ /data/web_static/current
