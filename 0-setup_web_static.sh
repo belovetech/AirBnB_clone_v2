@@ -24,4 +24,3 @@ sed -i "38i\\\tlocation /hbnb_static/{\n\t\talias /data/web_static/current/;\n\t
 
 # Restart Nginx
 service nginx restart
-
