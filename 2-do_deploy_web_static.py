@@ -20,19 +20,19 @@ def do_deploy(archive_path):
         try:
             arch = archive_path.split('/')[1]
             dirn = arch.split('.')[0]
-            path = '/data/web_static/releases/'
+            path = '/data/web_static/releases/'.format(dirn)
 
             put('{} /tmp/'.format(arch))
 
             run('mkdir -p path{}'.format(dirn))
-            run('tar -xzf {} -C path{}'.format(arch, dirn))
+            run('tar -xzf {} -C {}'.format(arch, path))
 
             run('rm -rf /tmp/{}'.format(arch))
-            run('mv path{}/web_static/* path{}/'.format(dirn, dirn))
-            run('rm -rf path{}/web_static'.format(dirn))
+            run('mv {}/web_static/* {}/'.format(path, path))
+            run('rm -rf {}/web_static'.format(path))
             run('rm -rf /data/web_static/current')
 
-            run('ln -s -f /data/web_static/current path{}'.format(dirn))
+            run('ln -s -f /data/web_static/current {}'.format(path))
 
             return True
         except Exception:
