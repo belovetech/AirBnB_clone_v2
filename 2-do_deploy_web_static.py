@@ -31,7 +31,7 @@ def do_deploy(archive_path):
             """Run remote commands on the server"""
             run('mkdir -p path{}'.format(path))
             run('tar -xvzf {} -C {}'.format(tmp_location, path))
-            run('rm -rf {}'.format(tmp_location))
+            run('rm {}'.format(tmp_location))
             run('mv {}/web_static/* {}/'.format(path, path))
             run('rm -rf {}/web_static'.format(path))
             run('rm -rf /data/web_static/current')
