@@ -20,11 +20,11 @@ def do_deploy(archive_path):
             """Split archive path"""
             archive = archive_path.split('/')[1]
             dirname = archive.split('.')[0]
-            
+
             """Save folder paths in variables"""
             path = '/data/web_static/releases/'.format(dirname)
             tmp_location = '/tmp/{}'.format(archive)
-            
+
             """Upload archive to the server"""
             put(archive_path, '/tmp/')
 
