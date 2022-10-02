@@ -4,7 +4,6 @@
 import os
 from fabric.api import *
 
-# versions/web_static_20170315003959.tgz
 
 env.hosts = ['35.153.143.199', '44.210.236.124']
 
@@ -18,21 +17,26 @@ def do_deploy(archive_path):
 
     if os.path.exists(archive_path):
         try:
-            arch = archive_path.split('/')[1]
-            dirn = arch.split('.')[0]
-            path = '/data/web_static/releases/'.format(dirn)
+            """Split archive path"""
+            archive = archive_path.split('/')[1]
+            dirname = archive.split('.')[0]
+            
+            """Save folder paths in variables"""
+            path = '/data/web_static/releases/'.format(dirname)
+            tmp_location = '/tmp/{}'.format(archive)
+            
+            """Upload archive to the server"""
+            put(archive_path, '/tmp/')
 
-            put('{} /tmp/'.format(arch))
-
-            run('mkdir -p path{}'.format(dirn))
-            run('tar -xzf {} -C {}'.format(arch, path))
-
-            run('rm -rf /tmp/{}'.format(arch))
+            """Run remote commands on the server"""
+            run('mkdir -p path{}'.format(path))
+            run('tar -xvzf {} -C {}'.format(tmp_location, path))
+            run('rm -rf {}'.format(tmp_location))
             run('mv {}/web_static/* {}/'.format(path, path))
             run('rm -rf {}/web_static'.format(path))
             run('rm -rf /data/web_static/current')
-
-            run('ln -s -f /data/web_static/current {}'.format(path))
+            run('ln -sf {} /data/web_static/current'.format(path))
+            run('sudo service nginx restart')
 
             return True
         except Exception:
