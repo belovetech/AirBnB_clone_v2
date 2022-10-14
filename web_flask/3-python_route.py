@@ -21,16 +21,16 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
     """Function invoked with /c/<text> route"""
-    return 'C {}'.format(text.replace('_', ' '))
+    return 'C  %s' % text.replace('_', ' ')
 
 
 @app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text='is cool'):
     """Function invoked with /python/<text> route"""
-    if text is not 'is cool':
+    if text != 'is cool':
         text = text.replace('_', ' ')
-    return 'Python {}'.format(text)
+    return 'Python %s' % text
 
 
 if __name__ == '__main__':
