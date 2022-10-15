@@ -1,1 +1,1 @@
-{"State.500e99e5-641b-4469-bc49-560eca0aae8f": {"key": "State", "id": "500e99e5-641b-4469-bc49-560eca0aae8f", "created_at": "2022-09-14T21:03:25.222294", "updated_at": "2022-09-14T21:03:25.222318", "name": "Nevada", "__class__": "State"}}
+{"State.None": {"created_at": "2022-10-15T18:13:25.605738", "updated_at": "2022-10-15T18:13:25.605868", "name": "Arizona", "__class__": "State"}, "City.None": {"created_at": "2022-10-15T18:13:25.608293", "updated_at": "2022-10-15T18:13:25.608459", "state_id": null, "name": "Page", "__class__": "City"}}
