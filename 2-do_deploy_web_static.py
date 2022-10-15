@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Deploy archive file to the server"""
+"""Script that deletes out-of-date archives"""
 
 import os
 from fabric.api import *

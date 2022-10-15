@@ -5,8 +5,8 @@ from models.base_model import Base
 from models.city import City
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from os import getenv
 import models
+import shlex
 
 
 class State(BaseModel, Base):
@@ -19,15 +19,21 @@ class State(BaseModel, Base):
     """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship('City', backref='states',
-                          cascade='all, delete, delete-orphan')
+    cities = relationship("City",
+                          cascade='all, delete, delete-orphan', backref="states")
 
-    if getenv('HBNB_TYPE_STORAGE') != 'db':
-        @property
-        def cities(self):
-            """Get a list of all related City objects"""
-            city_list = []
-            for city in list(models.storage.all(City).values()):
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+    @property
+    def cities(self):
+        """Get a list of all related City objects"""
+        data = models.storage.all()
+        lista = []
+        result = []
+        for key in data:
+            city = key.replace('.', ' ')
+            city = shlex.split(city)
+            if (city[0] == 'City'):
+                lista.append(data[key])
+        for elem in lista:
+            if (elem.state_id == self.id):
+                result.append(elem)
+        return (result)
