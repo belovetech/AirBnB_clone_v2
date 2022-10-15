@@ -2,17 +2,15 @@
 """ Console Module """
 import cmd
 import sys
-import utils
-from datetime import datetime
 from models.base_model import BaseModel
-from models import storage
+from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from shlex import split
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -39,8 +37,7 @@ class HBNBCommand(cmd.Cmd):
             print('(hbnb)')
 
     def precmd(self, line):
-        """Reformat command line for advanced command syntax.
-
+        """Reformat command line for advanced command syntax
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -116,71 +113,33 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    # def do_create(self, args):
-    #     """ Create an object of any class"""
-    #     """ Create an object of any class"""
-    #     args_split = args.split()
-
-    #     if not args_split[0]:
-    #         print("** class name missing **")
-    #         return
-    #     elif args_split[0] not in HBNBCommand.classes:
-    #         print("** class doesn't exist **")
-    #         return
-
-    #     else:
-    #         if (len(args_split) == 1):
-    #             print(eval(args_split[0])().id)
-    #             storage.save()
-    #             return False
-    #         clsName = args_split[0] + "." + eval(args_split[0])().id
-    #         for arg in args_split[1:]:
-    #             key, value = arg.split('=')
-
-    #             if not utils.is_floatstring(value):
-    #                 if ' ' in value:
-    #                     return
-    #                 value = value.replace('_', ' ')
-    #                 value = value.strip('"')
-    #             if utils.is_floatstring(value) == 1:
-    #                 try:
-    #                     value = int(value)
-    #                 except Exception:
-    #                     value = float(value)
-
-    #             setattr(storage.all()[clsName], key, value)
-    #         _, id = clsName.split('.')
-    #         print(id)
-    #         storage.all()[clsName].save()
-    def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it
-        Exceptions:
-            SyntaxError: when there is no args given
-            NameError: when there is no object taht has the name
-        """
-        try:
-            if not line:
-                raise SyntaxError()
-            my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
-            print("{}".format(obj.id))
-            for num in range(1, len(my_list)):
-                my_list[num] = my_list[num].replace('=', ' ')
-                attributes = split(my_list[num])
-                attributes[1] = attributes[1].replace('_', ' ')
-                try:
-                    var = eval(attributes[1])
-                    attributes[1] = var
-                except:
-                    pass
-                if type(attributes[1]) is not tuple:
-                    setattr(obj, attributes[0], attributes[1])
-            obj.save()
-        except SyntaxError:
+    def do_create(self, args):
+        """ Create an object of any class"""
+        if len(args) == 0:
             print("** class name missing **")
-        except NameError:
+            return
+        try:
+            args = shlex.split(args)
+            new_instance = eval(args[0])()
+            for i in args[1:]:
+                try:
+                    key = i.split("=")[0]
+                    value = i.split("=")[1]
+                    if hasattr(new_instance, key) is True:
+                        value = value.replace("_", " ")
+                        try:
+                            value = eval(value)
+                        except:
+                            pass
+                        setattr(new_instance, key, value)
+                except (ValueError, IndexError):
+                    pass
+            new_instance.save()
+            print(new_instance.id)
+        except:
             print("** class doesn't exist **")
-            
+            return
+
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
@@ -242,7 +201,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del (storage.all()[key])
+            del(storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -252,47 +211,47 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    # def do_all(self, args):
-    #     """ Shows all objects, or all objects of a class"""
-    #     print_list = []
+    def do_all(self, args):
+        """ Shows all objects, or all objects of a class"""
+        print_list = []
 
-    #     if args:
-    #         args = args.split(' ')[0]  # remove possible trailing args
-    #         if args not in HBNBCommand.classes:
-    #             print("** class doesn't exist **")
-    #             return
-    #         for k, v in storage._FileStorage__objects.items():
-    #             if k.split('.')[0] == args:
-    #                 print_list.append(str(v))
-    #     else:
-    #         for k, v in storage._FileStorage__objects.items():
-    #             print_list.append(str(v))
+        if args:
+            args = args.split(' ')[0]  # remove possible trailing args
+            if args not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+            for k, v in storage._FileStorage__objects.items():
+                if k.split('.')[0] == args:
+                    print_list.append(str(v))
+        else:
+            for k, v in storage._FileStorage__objects.items():
+                print_list.append(str(v))
 
-    #     print(print_list)
-    def do_all(self, line):
-        """Prints all string representation of all instances
-        Exceptions:
-            NameError: when there is no object taht has the name
-        """
-        objects = storage.all()
-        my_list = []
-        if not line:
-            for key in objects:
-                my_list.append(objects[key])
-            print(my_list)
-            return
-        try:
-            args = line.split(" ")
-            if args[0] not in self.classes:
-                raise NameError()
-            for key in objects:
-                name = key.split('.')
-                if name[0] == args[0]:
-                    my_list.append(objects[key])
-            print(my_list)
-        except NameError:
-            print("** class doesn't exist **")
-
+        print(print_list)
+    # def do_all(self, line):
+    #     """Prints all string representation of all instances
+    #     Exceptions:
+    #         NameError: when there is no object taht has the name
+    #     """
+    #     objects = storage.all()
+    #     my_list = []
+    #     if not line:
+    #         for key in objects:
+    #             my_list.append(objects[key])
+    #         print(my_list)
+    #         return
+    #     try:
+    #         args = line.split(" ")
+    #         if args[0] not in type(self).classes:
+    #             raise NameError()
+    #         for key in objects:
+    #             name = key.split('.')
+    #             if name[0] == args[0]:
+    #                 my_list.append(objects[key])
+    #         print(my_list)
+    #     except NameError:
+    #         print("** class doesn't exist **")
+            
     def help_all(self):
         """ Help information for the all command """
         print("Shows all objects, or all of a class")
@@ -401,3 +360,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
+    
