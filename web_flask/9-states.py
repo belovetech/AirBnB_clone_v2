@@ -24,9 +24,8 @@ def states():
 @app.route('/states/<id>', strict_slashes=False)
 def state_city(id=None):
     states = storage.all("State")
-
-    for state in states.value():
-        if states.id == id:
+    for state in states.values():
+        if state.id == id:
             return render_template('9-states.html',
                                    Table=state.name,  state=state)
     return render_template('9-states.html', Table=state.name,  state=None)
