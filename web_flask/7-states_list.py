@@ -17,10 +17,10 @@ def teardown_appcontext(exception):
 @app.route('/states_list', strict_slashes=False)
 def states():
     """List all states"""
-    states = storage.all(State)
-    states_dic = {state['id']: state['name'] for state in states.values()}
+    states = storage.all("State")
+    # states_dic = {state.id: state.name for state in states.values()}
     return render_template('7-states_list.html',
-                           Table="States", states=states_dic)
+                           Table="States", states=states)
 
 
 if __name__ == '__main__':
