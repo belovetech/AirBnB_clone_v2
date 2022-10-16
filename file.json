@@ -1,1 +1,40 @@
-{"State.55500a35-33eb-4e68-bf38-68538f045882": {"id": "55500a35-33eb-4e68-bf38-68538f045882", "created_at": "2022-10-16T09:12:56.789441", "updated_at": "2022-10-16T09:12:56.789505", "__class__": "State"}, "City.c5ab7986-0276-4148-b1ff-df5a33ea1cef": {"id": "c5ab7986-0276-4148-b1ff-df5a33ea1cef", "created_at": "2022-10-16T09:35:54.677222", "updated_at": "2022-10-16T09:35:54.677321", "__class__": "City"}, "City.d5fd4f7d-9fbc-4e23-9f02-ae988aba375a": {"id": "d5fd4f7d-9fbc-4e23-9f02-ae988aba375a", "created_at": "2022-10-16T09:37:21.423229", "updated_at": "2022-10-16T09:37:21.423263", "__class__": "City"}, "State.391831a4-5542-44eb-99e6-e69567112895": {"id": "391831a4-5542-44eb-99e6-e69567112895", "created_at": "2022-10-16T09:38:36.155308", "updated_at": "2022-10-16T09:38:36.155400", "__class__": "State"}}
+{
+	"State.45d7d38c-a93b-4508-8e39-0cc7d1058524": {
+		"id": "45d7d38c-a93b-4508-8e39-0cc7d1058524",
+		"created_at": "2022-10-16T10:27:15.840934",
+		"updated_at": "2022-10-16T10:27:15.841061",
+		"name": "California",
+		"__class__": "State"
+	},
+	"State.533b1fbf-398c-4a8e-856e-a91f9d5cd3d3": {
+		"id": "533b1fbf-398c-4a8e-856e-a91f9d5cd3d3",
+		"created_at": "2022-10-16T10:27:15.841466",
+		"updated_at": "2022-10-16T10:27:15.841551",
+		"name": "Arizona",
+		"__class__": "State"
+	},
+	"City.76e24287-6096-48cc-b779-425f14d8bf97": {
+		"id": "76e24287-6096-48cc-b779-425f14d8bf97",
+		"created_at": "2022-10-16T10:27:15.841931",
+		"updated_at": "2022-10-16T10:27:15.842014",
+		"state_id": "45d7d38c-a93b-4508-8e39-0cc7d1058524",
+		"name": "Napa",
+		"__class__": "City"
+	},
+	"City.2401c020-9e01-486f-b880-a82af4b052f9": {
+		"id": "2401c020-9e01-486f-b880-a82af4b052f9",
+		"created_at": "2022-10-16T10:27:15.842624",
+		"updated_at": "2022-10-16T10:27:15.842693",
+		"state_id": "45d7d38c-a93b-4508-8e39-0cc7d1058524",
+		"name": "Sonoma",
+		"__class__": "City"
+	},
+	"City.126c3778-ae17-4394-bee8-3e6f3fc80fe2": {
+		"id": "126c3778-ae17-4394-bee8-3e6f3fc80fe2",
+		"created_at": "2022-10-16T10:27:15.843292",
+		"updated_at": "2022-10-16T10:27:15.843365",
+		"state_id": "533b1fbf-398c-4a8e-856e-a91f9d5cd3d3",
+		"name": "Page",
+		"__class__": "City"
+	}
+}

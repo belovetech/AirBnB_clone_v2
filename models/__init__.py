@@ -2,7 +2,7 @@
 '''The Package initializer'''
 from os import getenv
 
-if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
+if getenv("HBNB_TYPE_STORAGE") == "db":
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:
