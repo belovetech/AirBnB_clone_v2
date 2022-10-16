@@ -9,8 +9,8 @@
 	<BODY>
 		<H1>{{ Table }}</H1>
 		<UL>
-			{% for id, name in states.items() | sort(attributes='1') %}
-			<LI>{{ id }}: <B>{{ name }}</B></LI>
+			{% for state in states.values() | sort(attribute="name") %}
+			    <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
 			{% endfor %}
 		</UL>
 	</BODY>
