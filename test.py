@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 
-archive_path = 'versions/web_static_20170315003959.tgz'
+obj = {
+    "name": "Abeeb",
+    "Age": 12
+}
 
-archive = archive_path.split('/')[1]
-filename = archive.split('.')[0]
+print(obj)
 
-print(filename)
+if "Age" in obj.keys():
+    del obj["Age"]
+
+print(obj)
