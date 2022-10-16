@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+"""Script that runs a Flask web application"""
+
+import os
+from flask import Flask, render_template
+from models import storage
+from models.state import State
+
+app = Flask(__name__)
+
+
+@app.teardown_appcontext
+def teardown_appcontext():
+    storage.close()
+
+
+@app.route('/states_list', strict_slashes=False)
+def states():
+    states = storage.all(State)
+    states_dic = {state['id']: state['name'] for state in states.values()}
+    return render_template('7-states_list.html',
+                           Table="States", states=states_dic)
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="0.0.0.0", port=port)
