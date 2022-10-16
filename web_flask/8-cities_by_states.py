@@ -13,11 +13,11 @@ def teardown_appcontext(exception):
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
+@app.route('/cities_by_states', strict_slashes=False)
 def states():
     """List all states"""
     states = storage.all("State")
-    return render_template('7-states_list.html',
+    return render_template('8-cities_by_states.html',
                            Table="States", states=states)
 
 
