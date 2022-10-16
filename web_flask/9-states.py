@@ -19,15 +19,16 @@ def states():
     states = storage.all("State")
     return render_template('7-states_list.html',
                            Table="States", states=states)
-               
+
 
 @app.route('/states/<id>', strict_slashes=False)
 def state_city(id=None):
     states = storage.all("State")
-    
+
     for state in states.value():
         if states.id == id:
-            return render_template('9-states.html', Table=state.name,  state=state)
+            return render_template('9-states.html',
+                                   Table=state.name,  state=state)
     return render_template('9-states.html', Table=state.name,  state=None)
 
 
