@@ -17,7 +17,8 @@ def teardown_appcontext(exception):
 def state_city(id=None):
     states = storage.all("State")
     amenities = storage.all("Amenity")
-    return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
+    places = storage.all("Place")
+    return render_template('100-hbnb.html', states=states, amenities=amenities, places=places)
 
 
 if __name__ == '__main__':

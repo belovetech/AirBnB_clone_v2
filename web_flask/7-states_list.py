@@ -4,7 +4,6 @@
 import os
 from flask import Flask, render_template
 from models import storage
-from models.state import State
 
 app = Flask(__name__)
 
@@ -18,7 +17,6 @@ def teardown_appcontext(exception):
 def states():
     """List all states"""
     states = storage.all("State")
-    # states_dic = {state.id: state.name for state in states.values()}
     return render_template('7-states_list.html',
                            Table="States", states=states)
 
